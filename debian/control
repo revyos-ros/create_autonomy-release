@@ -1,0 +1,12 @@
+Source: ros-lunar-ca-tools
+Section: misc
+Priority: extra
+Maintainer: Jacob Perron <jperron@sfu.ca>
+Build-Depends: debhelper (>= 9.0.0), ros-lunar-catkin
+Homepage: http://wiki.ros.org/ca_tools
+Standards-Version: 3.9.2
+
+Package: ros-lunar-ca-tools
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-lunar-joy, ros-lunar-joy-teleop
+Description: Launch and configuration files for common accessories when working with Create/Roomba platforms.
