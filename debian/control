@@ -1,0 +1,12 @@
+Source: ros-lunar-ca-driver
+Section: misc
+Priority: extra
+Maintainer: Jacob Perron <jperron@sfu.ca>
+Build-Depends: debhelper (>= 9.0.0), ros-lunar-ca-msgs, ros-lunar-catkin, ros-lunar-diagnostic-msgs, ros-lunar-diagnostic-updater, ros-lunar-geometry-msgs, ros-lunar-libcreate, ros-lunar-nav-msgs, ros-lunar-roscpp, ros-lunar-roslint, ros-lunar-sensor-msgs, ros-lunar-std-msgs, ros-lunar-tf
+Homepage: http://wiki.ros.org/ca_driver
+Standards-Version: 3.9.2
+
+Package: ros-lunar-ca-driver
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-lunar-ca-description, ros-lunar-ca-msgs, ros-lunar-diagnostic-msgs, ros-lunar-diagnostic-updater, ros-lunar-geometry-msgs, ros-lunar-libcreate, ros-lunar-nav-msgs, ros-lunar-roscpp, ros-lunar-sensor-msgs, ros-lunar-std-msgs, ros-lunar-tf
+Description: ROS driver for iRobot's Create and Roomba platforms, based on libcreate
