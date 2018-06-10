@@ -1,0 +1,41 @@
+ros-lunar-ca-msgs (1.3.0-0xenial) xenial; urgency=high
+
+  * Migrate to package.xml format 2
+    
+    Minor linting to package files.
+  * Add support for defining and playing songs
+  * Refactor CMakeLists.txt and package.xml files and add missing install rules
+  * Contributors: Clyde McQueen, Jacob Perron
+
+ -- Jacob Perron <jperron@sfu.ca>  Sun, 10 Jun 2018 07:00:00 -0000
+
+ros-lunar-ca-msgs (1.2.0-0xenial) xenial; urgency=high
+
+
+
+ -- Jacob Perron <jperron@sfu.ca>  Fri, 07 Oct 2016 07:00:00 -0000
+
+ros-lunar-ca-msgs (1.1.0-0xenial) xenial; urgency=high
+
+
+
+ -- Jacob Perron <jperron@sfu.ca>  Sat, 23 Jul 2016 07:00:00 -0000
+
+ros-lunar-ca-msgs (1.0.1-0xenial) xenial; urgency=high
+
+  * Add Bumper message with contact sensor states and light sensor states
+  * Add header to all custom message types
+  * Contributors: Jacob Perron
+
+ -- Jacob Perron <jperron@sfu.ca>  Tue, 24 May 2016 07:00:00 -0000
+
+ros-lunar-ca-msgs (1.0.0-0xenial) xenial; urgency=high
+
+  * Add ChargingState and Mode messages
+  * Add charging state and mode publishers
+  * Add 'ca_msgs' package
+  * Contributors: Jacob Perron
+
+ -- Jacob Perron <jperron@sfu.ca>  Fri, 01 Apr 2016 07:00:00 -0000
+
+
