@@ -1,0 +1,12 @@
+Source: ros-kinetic-create-autonomy
+Section: misc
+Priority: extra
+Maintainer: Jacob Perron <jperron@sfu.ca>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-catkin
+Homepage: http://wiki.ros.org/create_autonomy
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-create-autonomy
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-ca-description, ros-kinetic-ca-driver, ros-kinetic-ca-msgs, ros-kinetic-ca-tools
+Description: ROS driver for iRobot's Create 1 and 2, based on the libcreate C++ library
