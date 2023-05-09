@@ -1,0 +1,12 @@
+Source: ros-melodic-create-description
+Section: misc
+Priority: optional
+Maintainer: Jacob Perron <jacob@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-catkin, ros-melodic-roslaunch
+Homepage: http://wiki.ros.org/create_description
+Standards-Version: 3.9.2
+
+Package: ros-melodic-create-description
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-robot-state-publisher, ros-melodic-urdf, ros-melodic-xacro
+Description: Robot URDF descriptions for create_robot
