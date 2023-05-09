@@ -1,0 +1,12 @@
+Source: ros-melodic-create-msgs
+Section: misc
+Priority: optional
+Maintainer: Jacob Perron <jacob@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-catkin, ros-melodic-message-generation, ros-melodic-std-msgs
+Homepage: http://wiki.ros.org/create_msgs
+Standards-Version: 3.9.2
+
+Package: ros-melodic-create-msgs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-message-runtime, ros-melodic-std-msgs
+Description: Common message definitions for create_robot
