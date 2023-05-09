@@ -1,0 +1,12 @@
+Source: ros-noetic-create-bringup
+Section: misc
+Priority: optional
+Maintainer: Jacob Perron <jacob@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-catkin
+Homepage: http://wiki.ros.org/create_bringup
+Standards-Version: 3.9.2
+
+Package: ros-noetic-create-bringup
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-create-description, ros-noetic-create-driver, ros-noetic-joy, ros-noetic-joy-teleop
+Description: Launch and configuration files for common accessories when working with Create/Roomba platforms.
