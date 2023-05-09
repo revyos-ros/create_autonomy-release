@@ -1,0 +1,12 @@
+Source: ros-noetic-create-msgs
+Section: misc
+Priority: optional
+Maintainer: Jacob Perron <jacob@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-catkin, ros-noetic-message-generation, ros-noetic-std-msgs
+Homepage: http://wiki.ros.org/create_msgs
+Standards-Version: 3.9.2
+
+Package: ros-noetic-create-msgs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-message-runtime, ros-noetic-std-msgs
+Description: Common message definitions for create_robot
