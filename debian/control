@@ -1,0 +1,12 @@
+Source: ros-melodic-create-driver
+Section: misc
+Priority: optional
+Maintainer: Jacob Perron <jacob@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-catkin, ros-melodic-create-msgs, ros-melodic-diagnostic-msgs, ros-melodic-diagnostic-updater, ros-melodic-geometry-msgs, ros-melodic-libcreate, ros-melodic-nav-msgs, ros-melodic-roscpp, ros-melodic-roslint, ros-melodic-sensor-msgs, ros-melodic-std-msgs, ros-melodic-tf2-geometry-msgs, ros-melodic-tf2-ros
+Homepage: http://wiki.ros.org/create_driver
+Standards-Version: 3.9.2
+
+Package: ros-melodic-create-driver
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-create-msgs, ros-melodic-diagnostic-msgs, ros-melodic-diagnostic-updater, ros-melodic-geometry-msgs, ros-melodic-libcreate, ros-melodic-nav-msgs, ros-melodic-roscpp, ros-melodic-sensor-msgs, ros-melodic-std-msgs, ros-melodic-tf2-geometry-msgs, ros-melodic-tf2-ros
+Description: ROS driver for iRobot's Create and Roomba platforms, based on libcreate
