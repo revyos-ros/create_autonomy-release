@@ -1,3 +1,31 @@
+## create_robot (noetic) - 2.0.0-1
+
+The packages in the `create_robot` repository were released into the `noetic` distro by running `/usr/bin/bloom-release -r noetic -t noetic create_robot` on `Tue, 09 May 2023 03:34:37 -0000`
+
+These packages were released:
+- `create_bringup`
+- `create_description`
+- `create_driver`
+- `create_msgs`
+- `create_robot`
+
+Version of package(s) in repository `create_robot`:
+
+- upstream repository: https://github.com/AutonomyLab/create_robot.git
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `2.0.0-1`
+
+Versions of tools used:
+
+- bloom version: `0.11.2`
+- catkin_pkg version: `0.5.2`
+- rosdep version: `0.22.2`
+- rosdistro version: `0.9.0`
+- vcstools version: `0.1.42`
+
+
 ## create_robot (melodic) - 2.0.0-1
 
 The packages in the `create_robot` repository were released into the `melodic` distro by running `/usr/bin/bloom-release -r melodic -t melodic create_robot` on `Tue, 09 May 2023 03:26:33 -0000`
