@@ -1,0 +1,12 @@
+Source: ros-foxy-create-driver
+Section: misc
+Priority: optional
+Maintainer: Jacob Perron <jacobmperron@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-foxy-ament-cmake, ros-foxy-ament-lint-auto <!nocheck>, ros-foxy-ament-lint-common <!nocheck>, ros-foxy-create-msgs, ros-foxy-diagnostic-msgs, ros-foxy-diagnostic-updater, ros-foxy-geometry-msgs, ros-foxy-libcreate, ros-foxy-nav-msgs, ros-foxy-rclcpp, ros-foxy-sensor-msgs, ros-foxy-std-msgs, ros-foxy-tf2-geometry-msgs, ros-foxy-tf2-ros, ros-foxy-ros-workspace
+Homepage: http://wiki.ros.org/create_driver
+Standards-Version: 3.9.2
+
+Package: ros-foxy-create-driver
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-foxy-create-msgs, ros-foxy-diagnostic-msgs, ros-foxy-diagnostic-updater, ros-foxy-geometry-msgs, ros-foxy-libcreate, ros-foxy-nav-msgs, ros-foxy-rclcpp, ros-foxy-sensor-msgs, ros-foxy-std-msgs, ros-foxy-tf2-geometry-msgs, ros-foxy-tf2-ros, ros-foxy-ros-workspace
+Description: ROS driver for iRobot's Create and Roomba platforms, based on libcreate
