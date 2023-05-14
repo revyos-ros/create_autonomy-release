@@ -1,0 +1,12 @@
+Source: ros-foxy-create-msgs
+Section: misc
+Priority: optional
+Maintainer: Jacob Perron <jacobmperron@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-foxy-ament-cmake, ros-foxy-rosidl-default-generators, ros-foxy-std-msgs, ros-foxy-ros-workspace, ros-foxy-rosidl-typesupport-fastrtps-c, ros-foxy-rosidl-typesupport-fastrtps-cpp, ros-foxy-rosidl-typesupport-connext-c, ros-foxy-rosidl-typesupport-connext-cpp
+Homepage: http://wiki.ros.org/create_msgs
+Standards-Version: 3.9.2
+
+Package: ros-foxy-create-msgs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-foxy-rosidl-default-runtime, ros-foxy-std-msgs, ros-foxy-ros-workspace
+Description: Common message definitions for create_robot
