@@ -1,6 +1,6 @@
 # create_robot
 
-[ROS](http://ros.org) driver for iRobot [Create 1 and 2](http://www.irobot.com/About-iRobot/STEM/Create-2.aspx).
+[ROS 2](https://docs.ros.org/en/foxy/) driver for iRobot [Create 1 and 2](http://www.irobot.com/About-iRobot/STEM/Create-2.aspx).
 This package wraps the C++ library [libcreate][libcreate], which uses iRobot's [Open Interface Specification][oi_spec].
 
 <!--[](* Documentation: TODO)-->
@@ -10,9 +10,9 @@ This package wraps the C++ library [libcreate][libcreate], which uses iRobot's [
 
 ## Build Status
 
-- ROS Kinetic ![](https://github.com/autonomylab/create_robot/workflows/Continuous%20Integration/badge.svg?branch=kinetic)
-- ROS Melodic ![](https://github.com/autonomylab/create_robot/workflows/Continuous%20Integration/badge.svg?branch=melodic)
-- ROS Foxy ![](https://github.com/autonomylab/create_robot/workflows/Continuous%20Integration/badge.svg?branch=foxy)
+- ROS Melodic (branch: `melodic`) ![](https://github.com/autonomylab/create_robot/workflows/Continuous%20Integration/badge.svg?branch=melodic)
+- ROS Noetic (branch: `noetic`) ![](https://github.com/autonomylab/create_robot/workflows/Continuous%20Integration/badge.svg?branch=noetic)
+- ROS Foxy (branch: `foxy`) ![](https://github.com/autonomylab/create_robot/workflows/Continuous%20Integration/badge.svg?branch=foxy)
 
 ## Supported Robots
 
@@ -47,7 +47,7 @@ _* Not verified. Anyone who is able to verify that this driver works or not is e
 |  Sound            | Available     |
 |  Wheeldrop        | Available     |
 |  Bumpers          | Available     |
-|  Cliff sensor     | Planned [#22](https://github.com/AutonomyLab/create_robot/issues/22)      |
+|  Cliff sensor     | Available     |
 |  Dirt detect      | N/A           |
 |  Omni IR sensor   | Available     |
 |  Left IR sensor   | N/A           |
@@ -64,27 +64,27 @@ _* Not verified. Anyone who is able to verify that this driver works or not is e
 #### Prerequisites
 
 * Internet connection
-* [ROS](http://wiki.ros.org/ROS/Installation) _Indigo_ or _Jade_
-* Ubuntu packages: `python-rosdep`, `python-catkin-tools`
+* [ROS 2](https://index.ros.org/doc/ros2/Installation) _Foxy_
+* Ubuntu packages: `python3-rosdep`, `python3-colcon-common-extensions`
 
 ``` bash
-$ sudo apt-get install python-rosdep python-catkin-tools
+$ sudo apt install python3-rosdep python3-colcon-common-extensions
 ```
 
 #### Compiling
 
-1. Create a catkin workspace  
+1. Create a colcon workspace
     ``` bash
     $ cd ~
     $ mkdir -p create_ws/src  
-    $ cd create_ws  
-    $ catkin init  
+    $ cd create_ws
     ```
 
 2. Clone this repo  
     ``` bash
     $ cd ~/create_ws/src
-    $ git clone https://github.com/autonomylab/create_robot.git
+    $ git clone https://github.com/autonomylab/create_robot.git --branch foxy
+    $ git clone https://github.com/AutonomyLab/libcreate
     ```
   
 3. Install dependencies  
@@ -97,7 +97,7 @@ $ sudo apt-get install python-rosdep python-catkin-tools
 4. Build  
     ``` bash
     $ cd ~/create_ws
-    $ catkin build
+    $ colcon build
     ```
 #### USB Permissions
 5. In order to connect to Create over USB, ensure your user is in the dialout group
@@ -113,7 +113,7 @@ $ sudo apt-get install python-rosdep python-catkin-tools
 
 1. After compiling from source, don't forget to source your workspace:  
     ``` bash
-    $ source ~/create_ws/devel/setup.bash
+    $ source ~/create_ws/install/setup.bash
     ```
 
 2. Connect computer to Create's 7-pin serial port
@@ -125,17 +125,17 @@ $ sudo apt-get install python-rosdep python-catkin-tools
 
 For Create 2 (Roomba 600/700 series):
 ``` bash
-$ roslaunch create_bringup create_2.launch
+$ ros2 launch create_bringup create_2.launch
 ```
 
 For Create 1 (Roomba 500 series):
 ``` bash
-$ roslaunch create_bringup create_1.launch
+$ ros2 launch create_bringup create_1.launch
 ```
 
 For Roomba 400 series:
 ``` bash
-$ roslaunch create_bringup roomba_400.launch
+$ ros2 launch create_bringup roomba_400.launch
 ```
 
 #### Launch file arguments
@@ -146,7 +146,7 @@ $ roslaunch create_bringup roomba_400.launch
 For example, if you would like to disable the robot description and provide a custom configuration file:
 
 ```bash
-$ roslaunch create_bringup create_2.launch config:=/abs/path/to/config.yaml desc:=false
+$ ros2 launch create_bringup create_2.launch config:=/abs/path/to/config.yaml desc:=false
 ```
 
 ### Parameters
@@ -161,55 +161,54 @@ $ roslaunch create_bringup create_2.launch config:=/abs/path/to/config.yaml desc
 `publish_tf`  |  Publish the transform from `odom_frame` to `base_frame` | `true`  
 `robot_model` |  The type of robot being controlled (supported values: `ROOMBA_400`, `CREATE_1` and `CREATE_2`) | `CREATE_2`
 `baud`        |  Serial baud rate | Inferred based on robot model, but is overwritten upon providing a value
+`oi_mode_workaround` | Some Roomba models incorrectly report the current OI mode in their sensor streams. Setting this to `true` will cause `libcreate` to decrement the OI mode received in the sensor stream by `1` | `false`
 
 ### Publishers
 
  Topic       | Description  | Type
 -------------|--------------|------
- `battery/capacity` | The estimated charge capacity of the robot's battery (Ah) | [std_msgs/Float32][float32]
- `battery/charge` | The current charge of the robot's battery (Ah) | [std_msgs/Float32][float32]
- `battery/charge_ratio` | Charge / capacity | [std_msgs/Float32][float32]
- `battery/charging_state` | The chargins state of the battery | [create_msgs/ChargingState][chargingstate_msg]
- `battery/current` | Current flowing through the robot's battery (A). Positive current implies charging | [std_msgs/Float32][float32]
- `battery/temperature` | The temperature of the robot's battery (degrees Celsius) | [std_msgs/Int16][int16]
- `battery/voltage` | Voltage of the robot's battery (V) | [std_msgs/Float32][float32]
- `bumper` | Bumper state message (including light sensors on bumpers) | [create_msgs/Bumper][bumper_msg]
- `clean_button` | 'clean' button is pressed ('play' button for Create 1) | [std_msgs/Empty][empty]
- `day_button` |  'day' button is pressed | [std_msgs/Empty][empty]
- `hour_button` | 'hour' button is pressed | [std_msgs/Empty][empty]
- `minute_button` | 'minute' button is pressed | [std_msgs/Empty][empty]
- `dock_button` | 'dock' button is pressed ('advance' button for Create 1) | [std_msgs/Empty][empty]
- `spot_button` | 'spot' button is pressed | [std_msgs/Empty][empty]
- `ir_omni` | The IR character currently being read by the omnidirectional receiver. Value 0 means no character is being received | [std_msgs/UInt16][uint16]
- `joint_states` | The states (position, velocity) of the drive wheel joints | [sensor_msgs/JointState][jointstate_msg]
- `mode` | The current mode of the robot (See [OI Spec][oi_spec] for details)| [create_msgs/Mode][mode_msg]
- `odom` |  Robot odometry according to wheel encoders | [nav_msgs/Odometry][odometry]
- `wheeldrop` | At least one of the drive wheels has dropped | [std_msgs/Empty][empty]
- `/tf` | The transform from the `odom` frame to `base_footprint`. Only if the parameter `publish_tf` is `true` | [tf2_msgs/TFMessage](http://docs.ros.org/jade/api/tf2_msgs/html/msg/TFMessage.html)
+ `battery/capacity` | The estimated charge capacity of the robot's battery (Ah) | [std_msgs/msg/Float32][float32]
+ `battery/charge` | The current charge of the robot's battery (Ah) | [std_msgs/msg/Float32][float32]
+ `battery/charge_ratio` | Charge / capacity | [std_msgs/msg/Float32][float32]
+ `battery/charging_state` | The chargins state of the battery | [create_msgs/msg/ChargingState][chargingstate_msg]
+ `battery/current` | Current flowing through the robot's battery (A). Positive current implies charging | [std_msgs/msg/Float32][float32]
+ `battery/temperature` | The temperature of the robot's battery (degrees Celsius) | [std_msgs/msg/Int16][int16]
+ `battery/voltage` | Voltage of the robot's battery (V) | [std_msgs/msg/Float32][float32]
+ `bumper` | Bumper state message (including light sensors on bumpers) | [create_msgs/msg/Bumper][bumper_msg]
+ `cliff` | Cliff state message | [create_msgs/msg/Cliff][cliff_msg]
+ `clean_button` | 'clean' button is pressed ('play' button for Create 1) | [std_msgs/msg/Empty][empty]
+ `day_button` |  'day' button is pressed | [std_msgs/msg/Empty][empty]
+ `hour_button` | 'hour' button is pressed | [std_msgs/msg/Empty][empty]
+ `minute_button` | 'minute' button is pressed | [std_msgs/msg/Empty][empty]
+ `dock_button` | 'dock' button is pressed ('advance' button for Create 1) | [std_msgs/msg/Empty][empty]
+ `spot_button` | 'spot' button is pressed | [std_msgs/msg/Empty][empty]
+ `ir_omni` | The IR character currently being read by the omnidirectional receiver. Value 0 means no character is being received | [std_msgs/msg/UInt16][uint16]
+ `joint_states` | The states (position, velocity) of the drive wheel joints | [sensor_msgs/msg/JointState][jointstate_msg]
+ `mode` | The current mode of the robot (See [OI Spec][oi_spec] for details)| [create_msgs/msg/Mode][mode_msg]
+ `odom` |  Robot odometry according to wheel encoders | [nav_msgs/msg/Odometry][odometry]
+ `wheeldrop` | At least one of the drive wheels has dropped | [std_msgs/msg/Empty][empty]
+ `/tf` | The transform from the `odom` frame to `base_footprint`. Only if the parameter `publish_tf` is `true` | [tf2_msgs/msg/TFMessage](https://docs.ros2.org/foxy/api/tf2_msgs/msg/TFMessage.html)
 
 
 ### Subscribers
 
 Topic       | Description   | Type
 ------------|---------------|------
-`cmd_vel` | Drives the robot's wheels according to a forward and angular velocity | [geometry_msgs/Twist][twist]
-`debris_led` | Enable / disable the blue 'debris' LED | [std_msgs/Bool][bool]
-`spot_led`   | Enable / disable the 'spot' LED | [std_msgs/Bool][bool]
-`dock_led`   | Enable / disable the 'dock' LED | [std_msgs/Bool][bool]
-`check_led`  | Enable / disable the 'check robot` LED | [std_msgs/Bool][bool]
-`power_led`  | Set the 'power' LED color and intensity. Accepts 1 or 2 bytes, the first represents the color between green (0) and red (255) and the second (optional) represents the intensity with brightest setting as default (255) | [std_msgs/UInt8MultiArray][uint8multiarray]
-`set_ascii` | Sets the 4 digit LEDs. Accepts 1 to 4 bytes, each representing an ASCII character to be displayed from left to right | [std_msgs/UInt8MultiArray][uint8multiarray]
-`dock` | Activates the demo docking behaviour. Robot enters _Passive_ mode meaning the user loses control (See [OI Spec][oi_spec]) | [std_msgs/Empty][empty]
-`undock` | Switches robot to _Full_ mode giving control back to the user | [std_msgs/Empty][empty]
-`define_song` | Define a song with up to 16 notes. Each note is described by a MIDI note number and a float32 duration in seconds. The longest duration is 255/64 seconds. You can define up to 4 songs (See [OI Spec][oi_spec]) | [create_msgs/DefineSong][definesong_msg]
-`play_song` | Play a predefined song | [create_msgs/PlaySong][playsong_msg]
-`side_brush_motor` | Set duty cycle for the side brush. Accepts -1.0 to 1.0 range | [create_msg/MotorSetpoint][motorsetpoint_msg]
-`main_brush_motor` | Set duty cycle for the main brush. Accepts -1.0 to 1.0 range | [create_msg/MotorSetpoint][motorsetpoint_msg]
-`vacuum_motor` | Set duty cycle for the vacuum. Accepts 0.0 to 1.0 range | [create_msg/MotorSetpoint][motorsetpoint_msg]
+`cmd_vel` | Drives the robot's wheels according to a forward and angular velocity | [geometry_msgs/msg/Twist][twist]
+`debris_led` | Enable / disable the blue 'debris' LED | [std_msgs/msg/Bool][bool]
+`spot_led`   | Enable / disable the 'spot' LED | [std_msgs/msg/Bool][bool]
+`dock_led`   | Enable / disable the 'dock' LED | [std_msgs/msg/Bool][bool]
+`check_led`  | Enable / disable the 'check robot` LED | [std_msgs/msg/Bool][bool]
+`power_led`  | Set the 'power' LED color and intensity. Accepts 1 or 2 bytes, the first represents the color between green (0) and red (255) and the second (optional) represents the intensity with brightest setting as default (255) | [std_msgs/msg/UInt8MultiArray][uint8multiarray]
+`set_ascii` | Sets the 4 digit LEDs. Accepts 1 to 4 bytes, each representing an ASCII character to be displayed from left to right | [std_msgs/msg/UInt8MultiArray][uint8multiarray]
+`dock` | Activates the demo docking behaviour. Robot enters _Passive_ mode meaning the user loses control (See [OI Spec][oi_spec]) | [std_msgs/msg/Empty][empty]
+`undock` | Switches robot to _Full_ mode giving control back to the user | [std_msgs/msg/Empty][empty]
+`define_song` | Define a song with up to 16 notes. Each note is described by a MIDI note number and a float32 duration in seconds. The longest duration is 255/64 seconds. You can define up to 4 songs (See [OI Spec][oi_spec]) | [create_msgs/msg/DefineSong][definesong_msg]
+`play_song` | Play a predefined song | [create_msgs/msg/PlaySong][playsong_msg]
 
 ## Commanding your Create
 
-You can move the robot around by sending [geometry_msgs/Twist][twist] messages to the topic `cmd_vel`:
+You can move the robot around by sending [geometry_msgs/msg/Twist][twist] messages to the topic `cmd_vel`:
 
 ```
 linear.x  (+)     Move forward (m/s)
@@ -226,14 +225,14 @@ angular.z (+)     Rotate counter-clockwise (rad/s)
 `create_bringup` comes with a launch file for teleoperating Create with a joystick.
 
 ``` bash
-$ roslaunch create_bringup joy_teleop.launch [joy_config:=xbox360]
+$ ros2 launch create_bringup joy_teleop.launch joy_config:=xbox360
 ```
 
 There exists configuration files for the [Xbox 360 wired controller](https://www.amazon.ca/Microsoft-Xbox-360-Wired-Controller/dp/B003ZSN600) and the [Logitech F710 controller](http://gaming.logitech.com/en-ca/product/f710-wireless-gamepad). You can adapt these files for your preferred joystick configuration.
 
 ## Contributions
 
-Contributing to the development and maintenance of _create\_robot_ is encouraged. Feel free to open issues or create pull requests on [GitHub](https://github.com/autonomylab/create_robot).
+Contributing to the development and maintenance of _create\_autonomy_ is encouraged. Feel free to open issues or create pull requests on [GitHub](https://github.com/autonomylab/create_robot).
 
 ### Contributors
 
@@ -244,22 +243,26 @@ Contributing to the development and maintenance of _create\_robot_ is encouraged
 * [Ben Wolsieffer](https://github.com/lopsided98) 
     - Added JointState publisher for wheels ([#26](https://github.com/AutonomyLab/create_robot/pull/26)).
     - Added Create 1 description ([#27](https://github.com/AutonomyLab/create_robot/pull/27)).
+* [Pedro Grojsgold](https://github.com/pgold)
+    - Ported to ROS 2 ([commit](https://github.com/AutonomyLab/create_robot/commit/198345071aa8a9df154d8490feabf5784b78da16)).
+* [Josh Gadeken](https://github.com/process1183)
+    - Added parameter for [libcreate's OI Mode reporting workaround](https://github.com/AutonomyLab/libcreate/pull/67) ([#95](https://github.com/AutonomyLab/create_robot/pull/95))
 
 [libcreate]:  https://github.com/AutonomyLab/libcreate
 [oi_spec]:  https://www.adafruit.com/datasheets/create_2_Open_Interface_Spec.pdf
-[odometry]:  http://docs.ros.org/api/nav_msgs/html/msg/Odometry.html
-[empty]:  http://docs.ros.org/api/std_msgs/html/msg/Empty.html
-[uint16]:  http://docs.ros.org/api/std_msgs/html/msg/UInt16.html
-[int16]:  http://docs.ros.org/api/std_msgs/html/msg/Int16.html
-[twist]:  http://docs.ros.org/api/geometry_msgs/html/msg/Twist.html
-[bool]:  http://docs.ros.org/api/std_msgs/html/msg/Bool.html
-[uint8multiarray]:  http://docs.ros.org/api/std_msgs/html/msg/UInt8MultiArray.html
-[float32]:  http://docs.ros.org/api/std_msgs/html/msg/Float32.html
-[create_msgs]:  http://github.com/autonomylab/create_robot/tree/melodic
-[bumper_msg]:  https://github.com/autonomylab/create_robot/blob/melodic/create_msgs/msg/Bumper.msg
-[mode_msg]:  https://github.com/autonomylab/create_robot/blob/melodic/create_msgs/msg/Mode.msg
-[chargingstate_msg]:  https://github.com/autonomylab/create_robot/blob/melodic/create_msgs/msg/ChargingState.msg
-[jointstate_msg]:  http://docs.ros.org/api/sensor_msgs/html/msg/JointState.html
-[definesong_msg]:  https://github.com/autonomylab/create_robot/blob/melodic/create_msgs/msg/DefineSong.msg
-[playsong_msg]:  https://github.com/autonomylab/create_robot/blob/melodic/create_msgs/msg/PlaySong.msg
-[motorsetpoint_msg]:  https://github.com/autonomylab/create_robot/blob/melodic/create_msgs/msg/MotorSetpoint.msg
+[odometry]:  https://docs.ros2.org/foxy/api/nav_msgs/msg/Odometry.html
+[empty]:  https://docs.ros2.org/foxy/api/std_msgs/msg/Empty.html
+[uint16]:  https://docs.ros2.org/foxy/api/std_msgs/msg/UInt16.html
+[int16]:  https://docs.ros2.org/foxy/api/std_msgs/msg/Int16.html
+[twist]:  https://docs.ros2.org/foxy/api/geometry_msgs/msg/Twist.html
+[bool]:  https://docs.ros2.org/foxy/api/std_msgs/msg/Bool.html
+[uint8multiarray]:  https://docs.ros2.org/foxy/api/std_msgs/msg/UInt8MultiArray.html
+[float32]:  https://docs.ros2.org/foxy/api/std_msgs/msg/Float32.html
+[create_msgs]:  http://github.com/autonomylab/create_robot/tree/foxy
+[bumper_msg]:  https://github.com/AutonomyLab/create_robot/blob/foxy/create_msgs/msg/Bumper.msg
+[cliff_msg]:  https://github.com/autonomylab/create_robot/blob/foxy/create_msgs/msg/Cliff.msg
+[mode_msg]:  https://github.com/AutonomyLab/create_robot/blob/foxy/create_msgs/msg/Mode.msg
+[chargingstate_msg]:  https://github.com/AutonomyLab/create_robot/blob/foxy/create_msgs/msg/ChargingState.msg
+[jointstate_msg]:  https://docs.ros2.org/foxy/api/sensor_msgs/msg/JointState.html
+[definesong_msg]:  https://github.com/AutonomyLab/create_robot/blob/foxy/create_msgs/msg/DefineSong.msg
+[playsong_msg]:  https://github.com/AutonomyLab/create_robot/blob/foxy/create_msgs/msg/PlaySong.msg
