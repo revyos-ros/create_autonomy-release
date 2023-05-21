@@ -1,3 +1,31 @@
+## create_robot (humble) - 3.1.0-1
+
+The packages in the `create_robot` repository were released into the `humble` distro by running `/usr/bin/bloom-release -r humble -t humble create_robot` on `Sun, 21 May 2023 23:35:04 -0000`
+
+These packages were released:
+- `create_bringup`
+- `create_description`
+- `create_driver`
+- `create_msgs`
+- `create_robot`
+
+Version of package(s) in repository `create_robot`:
+
+- upstream repository: https://github.com/AutonomyLab/create_robot.git
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `3.1.0-1`
+
+Versions of tools used:
+
+- bloom version: `0.11.2`
+- catkin_pkg version: `0.5.2`
+- rosdep version: `0.22.2`
+- rosdistro version: `0.9.0`
+- vcstools version: `0.1.42`
+
+
 ## create_robot (foxy) - 3.0.0-1
 
 The packages in the `create_robot` repository were released into the `foxy` distro by running `/usr/bin/bloom-release -r foxy -t foxy create_robot` on `Sun, 14 May 2023 06:12:39 -0000`
