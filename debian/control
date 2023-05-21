@@ -1,0 +1,12 @@
+Source: ros-humble-create-driver
+Section: misc
+Priority: optional
+Maintainer: Jacob Perron <jacobmperron@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-humble-ament-cmake, ros-humble-ament-lint-auto <!nocheck>, ros-humble-ament-lint-common <!nocheck>, ros-humble-create-msgs, ros-humble-diagnostic-msgs, ros-humble-diagnostic-updater, ros-humble-geometry-msgs, ros-humble-libcreate, ros-humble-nav-msgs, ros-humble-rclcpp, ros-humble-sensor-msgs, ros-humble-std-msgs, ros-humble-tf2-geometry-msgs, ros-humble-tf2-ros, ros-humble-ros-workspace
+Homepage: http://wiki.ros.org/create_driver
+Standards-Version: 3.9.2
+
+Package: ros-humble-create-driver
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-humble-create-msgs, ros-humble-diagnostic-msgs, ros-humble-diagnostic-updater, ros-humble-geometry-msgs, ros-humble-libcreate, ros-humble-nav-msgs, ros-humble-rclcpp, ros-humble-sensor-msgs, ros-humble-std-msgs, ros-humble-tf2-geometry-msgs, ros-humble-tf2-ros, ros-humble-ros-workspace
+Description: ROS driver for iRobot's Create and Roomba platforms, based on libcreate
