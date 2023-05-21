@@ -1,0 +1,12 @@
+Source: ros-humble-create-robot
+Section: misc
+Priority: optional
+Maintainer: Jacob Perron <jacobmperron@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-humble-ament-cmake, ros-humble-ros-workspace
+Homepage: http://wiki.ros.org/create_robot
+Standards-Version: 3.9.2
+
+Package: ros-humble-create-robot
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-humble-create-bringup, ros-humble-create-description, ros-humble-create-driver, ros-humble-create-msgs, ros-humble-ros-workspace
+Description: ROS driver for iRobot's Create 1 and 2, based on the libcreate C++ library
