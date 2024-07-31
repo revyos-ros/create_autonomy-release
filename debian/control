@@ -1,0 +1,12 @@
+Source: ros-humble-create-bringup
+Section: misc
+Priority: optional
+Maintainer: Jacob Perron <jacobmperron@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-humble-ament-cmake, ros-humble-ros-workspace
+Homepage: http://wiki.ros.org/create_bringup
+Standards-Version: 3.9.2
+
+Package: ros-humble-create-bringup
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-humble-create-description, ros-humble-create-driver, ros-humble-joy, ros-humble-joy-teleop, ros-humble-launch-xml, ros-humble-ros-workspace
+Description: Launch and configuration files for common accessories when working with Create/Roomba platforms.
